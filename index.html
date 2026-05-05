@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1e1b4b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Encuentra tu Grupo — Jornada de Capacitación Docente</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23f97316'/><path d='M16 6C11.6 6 8 9.6 8 14c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 10.5c-1.4 0-2.5-1.1-2.5-2.5S14.6 11.5 16 11.5s2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z' fill='white'/></svg>" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+/* ── Tokens ──────────────────────────────────────────────────────────────── */
+:root {
+  --sun:       #f97316;
+  --sun-dk:    #ea580c;
+  --sun-lt:    #fff7ed;
+  --gold:      #f59e0b;
+  --gold-lt:   #fef3c7;
+  --green:     #16a34a;
+  --green-lt:  #dcfce7;
+  --bg:        #fffdf5;
+  --white:     #ffffff;
+  --text:      #292524;
+  --muted:     #78716c;
+  --border:    #fed7aa;
+  --border-lt: #ffedd5;
+  --sh:        0 2px 12px rgba(249,115,22,.1);
+  --sh-lg:     0 12px 40px rgba(249,115,22,.16);
+  --r-sm: 12px;
+  --r:    16px;
+  --r-lg: 22px;
+}
+
+/* ── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(145deg, var(--sun-dk) 0%, var(--sun) 55%, #fb923c 100%);
+  padding: 30px 20px 46px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.header-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.3);
+  color: rgba(255,255,255,.9);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  padding: 4px 13px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+
+.header-title {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.45rem, 5.5vw, 2.1rem);
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  position: relative; z-index: 1;
+}
+
+.header-sub {
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.7);
+  margin-top: 6px;
+  position: relative; z-index: 1;
+}
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 14px 48px;
+}
+
+/* ── Search card ─────────────────────────────────────────────────────────── */
+.search-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: 22px 18px 20px;
+  box-shadow: var(--sh-lg);
+  margin-top: -18px;
+  position: relative;
+  z-index: 20;
+}
+
+.card-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.card-sub {
+  font-size: .83rem;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+/* Search input */
+.search-wrap { position: relative; margin-bottom: 12px; }
+
+.search-ico {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 13px 40px 13px 40px;
+  border: 2px solid var(--border);
+  border-radius: var(--r-sm);
+  font-family: 'Nunito', sans-serif;
+  font-size: .97rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  -webkit-appearance: none;
+}
+.search-input:focus {
+  border-color: var(--sun);
+  box-shadow: 0 0 0 4px rgba(249,115,22,.12);
+  background: var(--white);
+}
+.search-input::placeholder { color: #c4b5a0; }
+
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #c4b5a0;
+  cursor: pointer;
+  padding: 6px;
+  font-size: .88rem;
+  line-height: 1;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: color .15s, background .15s;
+}
+.search-clear:hover { color: var(--text); background: var(--sun-lt); }
+.search-clear.visible { display: flex; }
+
+/* Dropdown */
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0; right: 0;
+  background: var(--white);
+  border: 2px solid var(--sun);
+  border-radius: var(--r-sm);
+  box-shadow: var(--sh-lg);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 100;
+  display: none;
+}
+.search-dropdown.open { display: block; }
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-lt);
+  transition: background .13s;
+}
+.dropdown-item:last-child { border-bottom: none; }
+.dropdown-item:hover { background: var(--sun-lt); }
+
+.dropdown-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: .72rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dropdown-avatar.facilitador { background: var(--green); }
+
+.dropdown-name { font-size: .92rem; font-weight: 600; flex: 1; }
+
+.dropdown-group {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--sun-dk);
+  background: var(--sun-lt);
+  padding: 2px 9px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.dropdown-empty { padding: 18px 14px; text-align: center; color: var(--muted); font-size: .88rem; }
+
+/* Or divider */
+.or-row {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--muted); font-size: .75rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  margin: 4px 0 12px;
+}
+.or-row::before, .or-row::after { content: ''; flex: 1; height: 1px; background: var(--border-lt); }
+
+/* Native select */
+.sel-wrap { position: relative; }
+.sel-wrap::after {
+  content: '▾';
+  position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+  color: var(--sun); pointer-events: none; font-size: .85rem;
+}
+.teacher-select {
+  width: 100%;
+  padding: 13px 38px 13px 14px;
+  border: 2px solid var(--border);
+  border-radius: var(--r-sm);
+  font-family: 'Nunito', sans-serif;
+  font-size: .93rem;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-appearance: none; appearance: none;
+  cursor: pointer; outline: none;
+  transition: border-color .2s;
+}
+.teacher-select:focus { border-color: var(--sun); }
+
+/* ── Result section ──────────────────────────────────────────────────────── */
+.result-section { margin-top: 14px; }
+.result-section.hidden { display: none; }
+
+/* Group card */
+.group-card {
+  background: linear-gradient(145deg, var(--sun-dk) 0%, var(--sun) 55%, #fb923c 100%);
+  border-radius: var(--r-lg);
+  padding: 26px 22px 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.group-card::before {
+  content: attr(data-group);
+  position: absolute;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 260px;
+  color: rgba(255,255,255,.06);
+  right: -14px; top: -28px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.group-card::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.result-name {
+  font-size: .95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  margin-bottom: 2px;
+  position: relative; z-index: 1;
+}
+
+.result-label {
+  font-size: .75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+
+.number-wrap { position: relative; z-index: 1; margin-top: -2px; }
+
+.group-word {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: .8rem;
+  color: rgba(255,255,255,.6);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+#group-number {
+  display: block;
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(110px, 32vw, 148px);
+  line-height: .85;
+  color: var(--white);
+  text-shadow: 0 4px 32px rgba(0,0,0,.15);
+  animation: numPop .48s cubic-bezier(.34,1.56,.64,1) .06s both;
+}
+
+.result-hint {
+  font-size: .74rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.5);
+  margin-top: 16px;
+  position: relative; z-index: 1;
+  line-height: 1.5;
+}
+
+/* ── Action groups (accordion) ───────────────────────────────────────────── */
+.actions { margin-top: 12px; }
+
+.action-group {
+  background: var(--white);
+  border: 2px solid var(--border-lt);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  box-shadow: var(--sh);
+  margin-bottom: 10px;
+  transition: border-color .2s;
+}
+.action-group:has(.btn-expand.active) { border-color: var(--sun); }
+
+.btn-expand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: background .15s, border-color .2s, color .2s;
+}
+.btn-expand:hover { background: var(--sun-lt); }
+.btn-expand.active {
+  background: var(--sun-lt);
+  border-bottom-color: var(--border-lt);
+  color: var(--sun-dk);
+}
+
+.btn-left { display: flex; align-items: center; gap: 9px; }
+.btn-ico { font-size: 1.05rem; }
+
+.btn-chevron {
+  font-size: .8rem;
+  color: var(--muted);
+  transition: transform .3s ease;
+  flex-shrink: 0;
+}
+.btn-expand.active .btn-chevron { transform: rotate(180deg); color: var(--sun); }
+
+/* Panel accordion */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .32s ease;
+}
+.panel.open { grid-template-rows: 1fr; }
+.panel-inner { overflow: hidden; }
+.panel-content { padding: 16px 16px 14px; }
+.panel-content--map { padding: 10px 10px 6px; }
+
+.panel-heading {
+  font-weight: 800;
+  font-size: .95rem;
+  color: var(--text);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-lt);
+}
+
+/* Member list */
+.member-list { display: flex; flex-direction: column; gap: 5px; }
+
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  background: var(--bg);
+  transition: background .13s;
+}
+.member-item:hover { background: var(--sun-lt); }
+
+.member-avatar {
+  width: 33px; height: 33px;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: .68rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.member-avatar.is-fac { background: var(--green); }
+
+.member-name { font-size: .87rem; font-weight: 600; flex: 1; }
+
+.member-badge {
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: var(--green-lt);
+  padding: 2px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* Facilitator cards */
+.fac-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px;
+  background: linear-gradient(135deg, #d97706 0%, var(--gold) 100%);
+  border-radius: 11px;
+  margin-bottom: 9px;
+}
+.fac-card:last-child { margin-bottom: 0; }
+
+.fac-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  border: 2px solid rgba(255,255,255,.3);
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: .82rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.fac-info { flex: 1; }
+.fac-name { font-size: .93rem; font-weight: 700; color: var(--white); }
+.fac-role { font-size: .72rem; font-weight: 500; color: rgba(255,255,255,.75); margin-top: 2px; letter-spacing: .04em; text-transform: uppercase; }
+.fac-star { font-size: 1.15rem; }
+
+.empty-state {
+  text-align: center;
+  padding: 16px;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+/* Map SVG */
+.map-content svg { border-radius: 8px; }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: 16px 20px 28px;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes numPop {
+  from { opacity: 0; transform: scale(.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Utility ─────────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-eyebrow">📍 Sede Social · 2026</div>
+    <h1 class="header-title">Jornada de Capacitación Docente</h1>
+    <p class="header-sub">Busca tu nombre y dirígete a tu grupo</p>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ── Search card ───────────────────────────────────────────────────── -->
+    <section class="search-card" aria-label="Buscador de grupos">
+      <h2 class="card-title">Encuentra tu grupo</h2>
+      <p class="card-sub">Escribe tu nombre o selecciónalo de la lista para ver tu grupo asignado.</p>
+
+      <!-- Live search -->
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Escribe tu nombre..."
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          aria-label="Buscar docente por nombre"
+          aria-autocomplete="list"
+          aria-controls="search-dropdown">
+        <button class="search-clear" id="search-clear" aria-label="Limpiar búsqueda">✕</button>
+        <div class="search-dropdown" id="search-dropdown" role="listbox" aria-label="Resultados de búsqueda"></div>
+      </div>
+
+      <div class="or-row">o</div>
+
+      <!-- Native select fallback -->
+      <div class="sel-wrap">
+        <select id="teacher-select" class="teacher-select" aria-label="Selecciona tu nombre de la lista completa">
+          <option value="">Selecciona tu nombre</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- ── Result section ────────────────────────────────────────────────── -->
+    <section id="result-section" class="result-section hidden" aria-live="polite" aria-atomic="true">
+
+      <!-- Group card -->
+      <div class="group-card" id="group-card" data-group="">
+        <p class="result-name" id="result-teacher-name"></p>
+        <p class="result-label">Tu grupo asignado es</p>
+        <div class="number-wrap">
+          <span class="group-word">Grupo</span>
+          <span id="group-number"></span>
+        </div>
+        <p class="result-hint">Dirígete a tu grupo en el plano&nbsp;· Toma una captura si lo necesitas 📸</p>
+      </div>
+
+      <!-- Accordion actions -->
+      <div class="actions">
+
+        <!-- Members -->
+        <div class="action-group">
+          <button class="btn-expand" data-panel="members" onclick="togglePanel('members')" aria-expanded="false">
+            <div class="btn-left">
+              <span class="btn-ico">👥</span>
+              Ver integrantes del grupo
+            </div>
+            <span class="btn-chevron">▾</span>
+          </button>
+          <div class="panel" id="panel-members" role="region">
+            <div class="panel-inner">
+              <div class="panel-content" id="members-content"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Facilitators -->
+        <div class="action-group">
+          <button class="btn-expand" data-panel="facilitators" onclick="togglePanel('facilitators')" aria-expanded="false">
+            <div class="btn-left">
+              <span class="btn-ico">⭐</span>
+              Ver facilitadores
+            </div>
+            <span class="btn-chevron">▾</span>
+          </button>
+          <div class="panel" id="panel-facilitators" role="region">
+            <div class="panel-inner">
+              <div class="panel-content" id="facilitators-content"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="action-group">
+          <button class="btn-expand" data-panel="map" onclick="togglePanel('map')" aria-expanded="false">
+            <div class="btn-left">
+              <span class="btn-ico">🗺️</span>
+              Ver mapa de ubicación
+            </div>
+            <span class="btn-chevron">▾</span>
+          </button>
+          <div class="panel" id="panel-map" role="region">
+            <div class="panel-inner">
+              <div class="panel-content panel-content--map" id="map-content"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /actions -->
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    Jornada de Capacitación Docente 2026 &middot; Sede Social
+  </footer>
+
+  <script>
+const DOCENTES = [
+  {id:"T001",nombre:"Adriana Patricia Manrique",grupo:1,rol:"integrante"},
+  {id:"T002",nombre:"Diego Armando Henao",grupo:2,rol:"integrante"},
+  {id:"T003",nombre:"Diego Ortegon",grupo:3,rol:"integrante"},
+  {id:"T004",nombre:"Leidy Mariana Restrepo",grupo:4,rol:"integrante"},
+  {id:"T005",nombre:"Ximena Guio",grupo:5,rol:"integrante"},
+  {id:"T006",nombre:"Angela Marcela Ramos",grupo:6,rol:"integrante"},
+  {id:"T007",nombre:"Claudia Andrade",grupo:7,rol:"integrante"},
+  {id:"T008",nombre:"Ana Maria Lopez Moreno",grupo:3,rol:"facilitador"},
+  {id:"T009",nombre:"Daniel Guzman",grupo:8,rol:"integrante"},
+  {id:"T010",nombre:"Jorge Eliecer Caro",grupo:9,rol:"integrante"},
+  {id:"T011",nombre:"Karen Garcia",grupo:10,rol:"integrante"},
+  {id:"T012",nombre:"Nubia Moreno",grupo:1,rol:"integrante"},
+  {id:"T013",nombre:"Natalia Moyano",grupo:12,rol:"integrante"},
+  {id:"T014",nombre:"Rosa Lemus",grupo:2,rol:"integrante"},
+  {id:"T015",nombre:"Hernando Castellanos",grupo:10,rol:"facilitador"},
+  {id:"T016",nombre:"Johana Vega",grupo:5,rol:"facilitador"},
+  {id:"T017",nombre:"Luz Adriana Rodriguez",grupo:11,rol:"integrante"},
+  {id:"T018",nombre:"Jose Alexander Hurtado",grupo:11,rol:"facilitador"},
+  {id:"T019",nombre:"Daniel Celis",grupo:1,rol:"facilitador"},
+  {id:"T020",nombre:"Claudia Ortiz",grupo:3,rol:"integrante"},
+  {id:"T021",nombre:"Daniela Bermudez",grupo:4,rol:"integrante"},
+  {id:"T022",nombre:"Dimas Malagon",grupo:5,rol:"integrante"},
+  {id:"T023",nombre:"Elizeth Castañeda",grupo:6,rol:"integrante"},
+  {id:"T024",nombre:"Laura Velandia",grupo:7,rol:"integrante"},
+  {id:"T025",nombre:"Magda Escobar",grupo:8,rol:"integrante"},
+  {id:"T026",nombre:"Maria Fernanda Vaquen",grupo:9,rol:"integrante"},
+  {id:"T027",nombre:"Natalia Parra",grupo:10,rol:"integrante"},
+  {id:"T028",nombre:"Norma Constanza Bonilla",grupo:12,rol:"integrante"},
+  {id:"T029",nombre:"Pablo Chaparro",grupo:10,rol:"integrante"},
+  {id:"T030",nombre:"Edwin Andres Alvarez",grupo:7,rol:"facilitador"},
+  {id:"T031",nombre:"Luis Eduardo Baquero",grupo:1,rol:"facilitador"},
+  {id:"T032",nombre:"Hugo Daniel Gonzalez",grupo:4,rol:"facilitador"},
+  {id:"T033",nombre:"Nidimar Angulo",grupo:1,rol:"integrante"},
+  {id:"T034",nombre:"Margarita Morales",grupo:12,rol:"facilitador"},
+  {id:"T035",nombre:"Jeison Ibarra",grupo:2,rol:"integrante"},
+  {id:"T036",nombre:"John Jairo Gelvez",grupo:3,rol:"integrante"},
+  {id:"T037",nombre:"Uriel Herrera",grupo:4,rol:"integrante"},
+  {id:"T038",nombre:"Andres Acevedo",grupo:2,rol:"facilitador"},
+  {id:"T039",nombre:"Brian Mateo Mancera",grupo:5,rol:"facilitador"},
+  {id:"T040",nombre:"Carlos Arturo Peña",grupo:9,rol:"facilitador"},
+  {id:"T041",nombre:"Carol Muñoz",grupo:2,rol:"facilitador"},
+  {id:"T042",nombre:"Angelica Moreno",grupo:5,rol:"integrante"},
+  {id:"T043",nombre:"Jessica Rey",grupo:6,rol:"integrante"},
+  {id:"T044",nombre:"Camila Peñaloza",grupo:7,rol:"integrante"},
+  {id:"T045",nombre:"Martha Rodriguez",grupo:8,rol:"integrante"},
+  {id:"T046",nombre:"Wilson Robles",grupo:9,rol:"integrante"},
+  {id:"T047",nombre:"Johan Rincon",grupo:12,rol:"facilitador"},
+  {id:"T048",nombre:"Sonia Velasquez",grupo:4,rol:"facilitador"},
+  {id:"T049",nombre:"Jorge Enrique Martinez",grupo:1,rol:"integrante"},
+  {id:"T050",nombre:"Ana Maria Hoyos",grupo:10,rol:"integrante"},
+  {id:"T051",nombre:"Diego Fernando Bernal",grupo:12,rol:"integrante"},
+  {id:"T052",nombre:"Teresa Martinez",grupo:2,rol:"integrante"},
+  {id:"T053",nombre:"Wilson Leon",grupo:3,rol:"integrante"},
+  {id:"T054",nombre:"Ivan Illidge Arrieta",grupo:3,rol:"facilitador"},
+  {id:"T055",nombre:"Julian Franco",grupo:6,rol:"facilitador"},
+  {id:"T056",nombre:"Lizette Johana Florez",grupo:8,rol:"facilitador"},
+  {id:"T057",nombre:"Camila Monroy Cortes",grupo:11,rol:"integrante"},
+  {id:"T058",nombre:"Angela Gonzalez Niño",grupo:4,rol:"integrante"},
+  {id:"T059",nombre:"Diana Carolina Rodriguez",grupo:5,rol:"integrante"},
+  {id:"T060",nombre:"Diana Osuna Ospina",grupo:6,rol:"integrante"},
+  {id:"T061",nombre:"Gildardo Plaza",grupo:7,rol:"integrante"},
+  {id:"T062",nombre:"Hugo Rincon",grupo:8,rol:"integrante"},
+  {id:"T063",nombre:"Karen Cardenas",grupo:1,rol:"integrante"},
+  {id:"T064",nombre:"Alison Rodriguez",grupo:9,rol:"integrante"},
+  {id:"T065",nombre:"Carolina Cardozo",grupo:10,rol:"integrante"},
+  {id:"T066",nombre:"Diego Tunjano",grupo:12,rol:"integrante"},
+  {id:"T067",nombre:"Francy Patricia Garcia",grupo:12,rol:"integrante"},
+  {id:"T068",nombre:"Luz Stella Diaz",grupo:2,rol:"integrante"},
+  {id:"T069",nombre:"Marcela Gonzalez",grupo:3,rol:"integrante"},
+  {id:"T070",nombre:"Nathalia Bravo",grupo:4,rol:"integrante"},
+  {id:"T071",nombre:"Sandra Perilla",grupo:5,rol:"integrante"},
+  {id:"T072",nombre:"Sara Lucia Rivera",grupo:6,rol:"integrante"},
+  {id:"T073",nombre:"Valentina Rivera",grupo:7,rol:"integrante"},
+  {id:"T074",nombre:"Vivian Staaden",grupo:8,rol:"integrante"},
+  {id:"T075",nombre:"Nancy Gonzalez",grupo:9,rol:"integrante"},
+  {id:"T076",nombre:"Johana Orjuela",grupo:10,rol:"integrante"},
+  {id:"T077",nombre:"Fabian Gutierrez",grupo:11,rol:"integrante"},
+  {id:"T078",nombre:"Nicolas Lopez",grupo:8,rol:"facilitador"},
+  {id:"T079",nombre:"Iliana Bedoya",grupo:1,rol:"integrante"},
+  {id:"T080",nombre:"Angelica Ospina",grupo:12,rol:"integrante"},
+  {id:"T081",nombre:"Jorge Martinez Hernaez",grupo:2,rol:"integrante"},
+  {id:"T082",nombre:"Juan Camilo Guerra",grupo:3,rol:"integrante"},
+  {id:"T083",nombre:"Maria Eugenia Ramirez",grupo:4,rol:"integrante"},
+  {id:"T084",nombre:"Natalia Vinasco",grupo:5,rol:"integrante"},
+  {id:"T085",nombre:"Oscar Pulido",grupo:6,rol:"integrante"},
+  {id:"T086",nombre:"Yenny Rincon",grupo:7,rol:"integrante"},
+  {id:"T087",nombre:"Tilcia Garcia",grupo:1,rol:"integrante"},
+  {id:"T088",nombre:"Alexandra Rodriguez",grupo:8,rol:"integrante"},
+  {id:"T089",nombre:"Jorge Andres Rozo",grupo:9,rol:"integrante"},
+  {id:"T090",nombre:"Magda Moreno",grupo:10,rol:"integrante"},
+  {id:"T091",nombre:"Sandra Cogua",grupo:12,rol:"integrante"},
+  {id:"T092",nombre:"Nathalia Rincon",grupo:11,rol:"integrante"},
+  {id:"T093",nombre:"Oscar Ivan Cardenas",grupo:4,rol:"facilitador"},
+  {id:"T094",nombre:"Lorena Gamboa",grupo:3,rol:"integrante"},
+  {id:"T095",nombre:"Jhairo Molina",grupo:2,rol:"integrante"},
+  {id:"T096",nombre:"Veronique Garcia",grupo:4,rol:"integrante"},
+  {id:"T097",nombre:"Andrey Mauricio Sierra",grupo:2,rol:"facilitador"},
+  {id:"T098",nombre:"Doillys Granados",grupo:5,rol:"integrante"},
+  {id:"T099",nombre:"Jose Gerardo Muñoz",grupo:6,rol:"integrante"},
+  {id:"T100",nombre:"Monica Gutierrez",grupo:7,rol:"integrante"},
+  {id:"T101",nombre:"Camila Cristancho",grupo:8,rol:"integrante"},
+  {id:"T102",nombre:"Liliana Rangel",grupo:9,rol:"integrante"},
+  {id:"T103",nombre:"Sergio Riaño",grupo:10,rol:"integrante"},
+  {id:"T104",nombre:"Yazmina Rolon",grupo:12,rol:"integrante"},
+  {id:"T105",nombre:"Viviana Avellaneda",grupo:3,rol:"integrante"},
+  {id:"T106",nombre:"Alexandra Bolaños",grupo:1,rol:"integrante"},
+  {id:"T107",nombre:"Erika Lopez",grupo:12,rol:"integrante"},
+  {id:"T108",nombre:"Elizabeth Cuellar",grupo:11,rol:"integrante"},
+  {id:"T109",nombre:"Jaime David Navarrete",grupo:10,rol:"facilitador"},
+  {id:"T110",nombre:"Andres Gomez-Caceres",grupo:4,rol:"integrante"},
+  {id:"T111",nombre:"Cesar Castañeda",grupo:5,rol:"integrante"},
+  {id:"T112",nombre:"John Ducuara",grupo:6,rol:"integrante"},
+  {id:"T113",nombre:"Julian Avila",grupo:7,rol:"integrante"},
+  {id:"T114",nombre:"Reynel Felipe Gomez",grupo:8,rol:"integrante"},
+  {id:"T115",nombre:"Walter Malagon",grupo:9,rol:"integrante"},
+  {id:"T116",nombre:"Lesdy Johanna Clavijo",grupo:1,rol:"integrante"},
+  {id:"T117",nombre:"Monica Mesa",grupo:3,rol:"integrante"},
+  {id:"T118",nombre:"Diana Castillo",grupo:10,rol:"integrante"},
+  {id:"T119",nombre:"Liliana Alfonso",grupo:2,rol:"integrante"},
+  {id:"T120",nombre:"Nidia Paola Rodriguez",grupo:4,rol:"integrante"},
+  {id:"T121",nombre:"Zarai Peña",grupo:5,rol:"integrante"},
+  {id:"T122",nombre:"Diana Consuelo Beltran",grupo:11,rol:"integrante"},
+  {id:"T123",nombre:"Gineth Espinoza",grupo:11,rol:"integrante"},
+  {id:"T124",nombre:"Angela Arevalo",grupo:6,rol:"facilitador"},
+  {id:"T125",nombre:"Fabian Vargas",grupo:1,rol:"facilitador"},
+  {id:"T126",nombre:"David Amaya",grupo:3,rol:"facilitador"},
+  {id:"T127",nombre:"Eliana Rodriguez",grupo:9,rol:"facilitador"},
+  {id:"T128",nombre:"Maria Teresa Santamaria",grupo:7,rol:"facilitador"},
+  {id:"T129",nombre:"David Arturo Suarez",grupo:11,rol:"facilitador"},
+  {id:"T130",nombre:"Adriana Lopez",grupo:6,rol:"integrante"},
+  {id:"T131",nombre:"David Calderon",grupo:7,rol:"integrante"},
+  {id:"T132",nombre:"Emilce Beltran",grupo:8,rol:"integrante"},
+  {id:"T133",nombre:"Leandro Chacon",grupo:9,rol:"integrante"},
+  {id:"T134",nombre:"Lizeth Peraza",grupo:10,rol:"integrante"},
+  {id:"T135",nombre:"Paula Fonseca",grupo:11,rol:"integrante"},
+  {id:"T136",nombre:"Andrea Carolina Moya",grupo:1,rol:"integrante"},
+  {id:"T137",nombre:"Cesar Rada",grupo:3,rol:"integrante"},
+  {id:"T138",nombre:"Ana Maria Reyes",grupo:12,rol:"integrante"},
+  {id:"T139",nombre:"Carolina Carrasquilla",grupo:2,rol:"integrante"},
+  {id:"T140",nombre:"Ivonne Zambrano",grupo:12,rol:"integrante"},
+  {id:"T141",nombre:"Jaime Andres Benito",grupo:5,rol:"integrante"},
+  {id:"T142",nombre:"Jenny Suarez",grupo:6,rol:"integrante"},
+  {id:"T143",nombre:"Lia Mendoza",grupo:7,rol:"integrante"},
+  {id:"T144",nombre:"Maryi Rodriguez",grupo:8,rol:"integrante"},
+  {id:"T145",nombre:"Nataly Garzon",grupo:9,rol:"integrante"},
+  {id:"T146",nombre:"Xiomara Mateus",grupo:10,rol:"integrante"},
+  {id:"T147",nombre:"Yuly Torres",grupo:11,rol:"integrante"},
+  {id:"T148",nombre:"Jesus Martinez Muñoz",grupo:11,rol:"integrante"},
+  {id:"T149",nombre:"Fernando Esquivel",grupo:11,rol:"integrante"},
+  {id:"T150",nombre:"Andres Rodriguez",grupo:12,rol:"integrante"},
+  {id:"T151",nombre:"Gustavo Andres Gomez",grupo:2,rol:"integrante"},
+  {id:"T152",nombre:"Oscar Muñoz",grupo:4,rol:"integrante"},
+  {id:"T153",nombre:"Roberto Alvarez",grupo:5,rol:"integrante"},
+  {id:"T154",nombre:"Alexandra Reyes",grupo:6,rol:"integrante"},
+  {id:"T155",nombre:"Edwin Ramirez",grupo:7,rol:"integrante"},
+  {id:"T156",nombre:"Yuliana Gonzalez",grupo:8,rol:"integrante"},
+  {id:"T157",nombre:"Diego Leon",grupo:9,rol:"integrante"},
+];
+
+// ── Utils ──────────────────────────────────────────────────────────────────
+function normalize(str) {
+  return str.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+}
+
+function getInitials(name) {
+  const parts = name.trim().split(' ');
+  return parts.length >= 2
+    ? (parts[0][0] + parts[1][0]).toUpperCase()
+    : name.substring(0, 2).toUpperCase();
+}
+
+// ── Sorted list ────────────────────────────────────────────────────────────
+const sorted = [...DOCENTES].sort((a, b) =>
+  a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' })
+);
+
+// ── DOM refs ───────────────────────────────────────────────────────────────
+const searchInput    = document.getElementById('search-input');
+const searchClear    = document.getElementById('search-clear');
+const searchDropdown = document.getElementById('search-dropdown');
+const teacherSelect  = document.getElementById('teacher-select');
+const resultSection  = document.getElementById('result-section');
+const groupCard      = document.getElementById('group-card');
+const groupNumberEl  = document.getElementById('group-number');
+const teacherNameEl  = document.getElementById('result-teacher-name');
+
+// ── Populate native select ─────────────────────────────────────────────────
+sorted.forEach(d => {
+  const opt = document.createElement('option');
+  opt.value = d.id;
+  opt.textContent = d.nombre;
+  teacherSelect.appendChild(opt);
+});
+
+// ── Search ─────────────────────────────────────────────────────────────────
+searchInput.addEventListener('input', handleSearch);
+searchInput.addEventListener('focus', () => { if (searchInput.value) handleSearch(); });
+searchInput.addEventListener('blur',  () => { setTimeout(closeDropdown, 180); });
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeDropdown(); searchInput.blur(); }
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  closeDropdown();
+  searchInput.focus();
+});
+
+function handleSearch() {
+  const raw = searchInput.value;
+  const q = normalize(raw);
+  searchClear.classList.toggle('visible', raw.length > 0);
+  if (!q) { closeDropdown(); return; }
+
+  const qWords = q.split(/\s+/).filter(w => w.length > 0);
+
+  const matches = sorted.filter(d => {
+    const n = normalize(d.nombre);
+    if (n.includes(q)) return true;
+    const nWords = n.split(/\s+/);
+    return qWords.every(qw => nWords.some(nw => nw.startsWith(qw)));
+  });
+  renderDropdown(matches);
+}
+
+function renderDropdown(matches) {
+  if (!matches.length) {
+    searchDropdown.innerHTML = '<div class="dropdown-empty">No se encontraron coincidencias</div>';
+  } else {
+    searchDropdown.innerHTML = matches.slice(0, 8).map(d => `
+      <div class="dropdown-item" data-id="${d.id}">
+        <div class="dropdown-avatar ${d.rol}">${getInitials(d.nombre)}</div>
+        <span class="dropdown-name">${d.nombre}</span>
+        <span class="dropdown-group">Grupo ${d.grupo}</span>
+      </div>`).join('');
+
+    searchDropdown.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('mousedown', e => {
+        e.preventDefault();
+        const t = DOCENTES.find(d => d.id === item.dataset.id);
+        if (t) { selectTeacher(t); searchInput.value = t.nombre; searchClear.classList.add('visible'); closeDropdown(); }
+      });
+    });
+  }
+  searchDropdown.classList.add('open');
+}
+
+function closeDropdown() { searchDropdown.classList.remove('open'); }
+
+// ── Native select ──────────────────────────────────────────────────────────
+teacherSelect.addEventListener('change', () => {
+  const t = DOCENTES.find(d => d.id === teacherSelect.value);
+  if (t) { selectTeacher(t); searchInput.value = ''; searchClear.classList.remove('visible'); }
+});
+
+// ── Select teacher ─────────────────────────────────────────────────────────
+function selectTeacher(teacher) {
+  teacherNameEl.textContent = teacher.nombre;
+  groupCard.dataset.group = teacher.grupo;
+
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.btn-expand').forEach(b => b.classList.remove('active'));
+
+  resultSection.classList.remove('hidden');
+
+  groupCard.style.animation = 'none';
+  groupCard.offsetHeight;
+  groupCard.style.animation = '';
+
+  animateNumber(groupNumberEl, teacher.grupo);
+
+  teacherSelect.value = teacher.id;
+
+  setTimeout(() => resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+}
+
+function animateNumber(el, target) {
+  if (target <= 1) { el.textContent = target; return; }
+  const steps = Math.min(target - 1, 8);
+  const delay = 300 / steps;
+  let cur = 1;
+  el.textContent = cur;
+  const iv = setInterval(() => {
+    cur = Math.min(cur + Math.ceil((target - 1) / steps), target);
+    el.textContent = cur;
+    if (cur >= target) clearInterval(iv);
+  }, delay);
+}
+
+// ── Panels ─────────────────────────────────────────────────────────────────
+window.togglePanel = function(panelId) {
+  const panel = document.getElementById('panel-' + panelId);
+  const btn   = document.querySelector(`[data-panel="${panelId}"]`);
+  const isOpen = panel.classList.contains('open');
+
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+  } else {
+    renderPanelContent(panelId);
+    panel.classList.add('open');
+    btn.classList.add('active');
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+  }
+};
+
+function renderPanelContent(panelId) {
+  const t = DOCENTES.find(d => d.id === teacherSelect.value) ||
+            sorted.find(d => d.nombre === teacherNameEl.textContent);
+  if (!t) return;
+
+  const g       = t.grupo;
+  const members = sorted.filter(d => d.grupo === g);
+  const facs    = members.filter(d => d.rol === 'facilitador');
+
+  if (panelId === 'members') {
+    document.getElementById('members-content').innerHTML = `
+      <h3 class="panel-heading">Integrantes del Grupo ${g}</h3>
+      <div class="member-list">
+        ${members.map(d => `
+          <div class="member-item">
+            <div class="member-avatar ${d.rol === 'facilitador' ? 'is-fac' : ''}">${getInitials(d.nombre)}</div>
+            <span class="member-name">${d.nombre}</span>
+            ${d.rol === 'facilitador' ? '<span class="member-badge">Facilitador</span>' : ''}
+          </div>`).join('')}
+      </div>`;
+  }
+
+  if (panelId === 'facilitators') {
+    document.getElementById('facilitators-content').innerHTML = `
+      <h3 class="panel-heading">Facilitadores del Grupo ${g}</h3>
+      ${facs.length ? facs.map(d => `
+        <div class="fac-card">
+          <div class="fac-avatar">${getInitials(d.nombre)}</div>
+          <div class="fac-info">
+            <p class="fac-name">${d.nombre}</p>
+            <p class="fac-role">Facilitador · Grupo ${g}</p>
+          </div>
+          <span class="fac-star">★</span>
+        </div>`).join('')
+      : '<p class="empty-state">Aún no hay facilitadores registrados para este grupo. Consulta al equipo organizador.</p>'}`;
+  }
+  if (panelId === 'map') {
+    document.getElementById('map-content').innerHTML = buildMapSVG(g);
+  }
+}
+
+// ── SVG Floor Plan ──────────────────────────────────────────────────────────
+function buildMapSVG(activeGroup) {
+  const VW = 400, VH = 328;
+  const RX = 50, RY = 30, RW = 342, RH = 272;
+  const RBtm = RY + RH; // 302
+
+  const GW = 57, HGAP = 8;
+  const colX = c => RX + 8 + c * (GW + HGAP); // 58, 123, 188, 253, 318
+
+  const PROJ_ZONE = 56;
+  const ROW_Y = [
+    RY + PROJ_ZONE + 6,                    // row 0 → 92
+    RY + PROJ_ZONE + 6 + 66 + 10,          // row 1 → 168
+    RY + PROJ_ZONE + 6 + (66 + 10) * 2,    // row 2 → 244
+  ];
+  const GH = [66, 66, 52];
+
+  const LAYOUT = [
+    [5,0,0,1],[4,1,0,1],[3,2,0,1],[2,3,0,1],[1,4,0,1],
+    [10,0,1,1],[9,1,1,1],[8,2,1,1],[7,3,1,1],[6,4,1,1],
+    [12,1,2,2],[11,3,2,2],
+  ];
+
+  const PROJ = [
+    { cx: (colX(0)+GW/2 + colX(1)+GW/2) / 2, n: 1 },
+    { cx: colX(2) + GW/2,                      n: 2 },
+    { cx: (colX(3)+GW/2 + colX(4)+GW/2) / 2, n: 3 },
+  ];
+
+  const projIcon = ({ cx }) => {
+    const bY = RY + 5;
+    const bH = 11;
+    const fanT = bY + bH;
+    const fanB = RY + PROJ_ZONE - 12;
+    return `
+      <rect x="${cx-16}" y="${bY}" width="32" height="${bH}" rx="4" fill="#312e81"/>
+      <rect x="${cx-6}" y="${bY-4}" width="12" height="6" rx="2" fill="#64748b"/>
+      <ellipse cx="${cx}" cy="${fanT+1}" rx="5" ry="3.5" fill="#818cf8" stroke="#4338ca" stroke-width="0.8"/>
+      <ellipse cx="${cx}" cy="${fanT+1}" rx="2.5" ry="1.8" fill="#c7d2fe"/>
+      <path d="M${cx-5} ${fanT+4} L${cx-20} ${fanB} L${cx+20} ${fanB} L${cx+5} ${fanT+4} Z"
+        fill="rgba(129,140,248,0.22)" stroke="rgba(99,102,241,0.5)" stroke-width="0.6"/>
+      `;
+  };
+
+  const groupBox = ([grp, col, row, span]) => {
+    const x  = colX(col);
+    const y  = ROW_Y[row];
+    const w  = span === 2 ? GW * 2 + HGAP : GW;
+    const h  = GH[row];
+    const cx = x + w / 2;
+    const active = grp === activeGroup;
+    const numFS = grp > 9 ? 23 : 27;
+    const lY = y + Math.round(h * 0.30);
+    const nY = y + Math.round(h * 0.76);
+
+    return `
+      ${active ? `
+        <rect x="${x-4}" y="${y-4}" width="${w+8}" height="${h+8}" rx="13"
+          fill="none" stroke="#f97316" stroke-width="2.5">
+          <animate attributeName="opacity" values="0.55;0.1;0.55" dur="2s" repeatCount="indefinite"/>
+        </rect>` : ''}
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10"
+        fill="${active ? '#f97316' : '#f0effe'}"
+        stroke="${active ? '#ea580c' : '#cac6ed'}" stroke-width="${active ? 2 : 1.5}"/>
+      <text x="${cx}" y="${lY}" text-anchor="middle"
+        font-family="Nunito,sans-serif" font-size="7" font-weight="700"
+        fill="${active ? 'rgba(255,255,255,0.82)' : '#9ca3af'}">Grupo</text>
+      <text x="${cx}" y="${nY}" text-anchor="middle"
+        font-family="'Bebas Neue',cursive" font-size="${numFS}"
+        fill="${active ? '#fff' : '#1e1b4b'}">${grp}</text>`;
+  };
+
+  const eX  = 2,  eW  = 28;
+  const eY  = ROW_Y[2] + 2;
+  const eH  = GH[2] + 4;
+  const eMY = eY + eH / 2;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${VW} ${VH}"
+      style="width:100%;height:auto;display:block;font-family:Nunito,sans-serif;">
+
+    <rect x="${RX}" y="${RY}" width="${RW}" height="${RH}" rx="8"
+      fill="#fafaf8" stroke="#1e1b4b" stroke-width="2.5"/>
+
+    ${PROJ.map(projIcon).join('')}
+
+    <line x1="${RX+6}" y1="${RY+PROJ_ZONE+1}" x2="${RX+RW-6}" y2="${RY+PROJ_ZONE+1}"
+      stroke="#e0dff8" stroke-width="1" stroke-dasharray="4,4"/>
+
+    ${LAYOUT.map(groupBox).join('')}
+
+    <rect x="${eX}" y="${eY}" width="${eW}" height="${eH}" rx="7" fill="#f97316"/>
+    <text transform="rotate(90,${eX+eW/2},${eMY+4})"
+      x="${eX+eW/2}" y="${eMY+4}" text-anchor="middle" dominant-baseline="middle"
+      font-family="Nunito,sans-serif" font-size="6.5" font-weight="800" fill="white">ENTRADA</text>
+    <rect x="${eX+eW}" y="${eMY-3}" width="${RX-(eX+eW)}" height="6" rx="3" fill="#f97316"/>
+    <polygon points="${RX},${eMY-9} ${RX+14},${eMY} ${RX},${eMY+9}" fill="#f97316"/>
+
+    <rect x="${RX}" y="${RBtm+5}" width="${RW}" height="17" rx="4" fill="#fff7ed"/>
+    <text x="${RX+RW/2}" y="${RBtm+15}" text-anchor="middle"
+      font-family="Nunito,sans-serif" font-size="6.8" font-weight="600" fill="#92400e">
+      ${activeGroup
+        ? `Tu grupo (${activeGroup}) está resaltado en naranja`
+        : 'Selecciona tu nombre arriba para ver tu grupo resaltado'}
+    </text>
+  </svg>`;
+}
+  </script>
+</body>
+</html>
